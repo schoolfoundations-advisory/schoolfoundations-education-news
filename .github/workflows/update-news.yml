@@ -23,7 +23,11 @@ jobs:
       - name: Run news processor
         run: python update_news.py
 
-      - name: Show generated files
+      - name: Show generated news
         run: |
-          echo "News processor completed."
-          ls -la
+          echo "Generated news data:"
+          if [ -f news.json ]; then
+            cat news.json
+          else
+            echo "No news.json file was generated."
+          fi
