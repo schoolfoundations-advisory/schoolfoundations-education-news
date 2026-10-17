@@ -31,3 +31,10 @@ jobs:
           else
             echo "No news.json file was generated."
           fi
+      - name: Save generated news file
+        if: ${{ hashFiles('news.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: schoolfoundations-news
+          path: news.json
+          retention-days: 30
