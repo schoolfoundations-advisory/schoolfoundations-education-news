@@ -55,7 +55,7 @@ def main():
                 if len(data) > 2_000_000:
                     raise ValueError('Feed exceeds 2 MB limit')
         items = parse_rss(data)
-                entries = ET.fromstring(data).findall('.//channel/item')
+        entries = ET.fromstring(data).findall('.//channel/item')
         print(f'DIAGNOSTIC: RSS entries received: {len(entries)}')
         for entry in entries[:3]:
             print('TITLE:', entry.findtext('title'))
