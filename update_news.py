@@ -55,6 +55,13 @@ def main():
                 if len(data) > 2_000_000:
                     raise ValueError('Feed exceeds 2 MB limit')
         items = parse_rss(data)
+                entries = ET.fromstring(data).findall('.//channel/item')
+        print(f'DIAGNOSTIC: RSS entries received: {len(entries)}')
+        for entry in entries[:3]:
+            print('TITLE:', entry.findtext('title'))
+            print('DATE:', entry.findtext('pubDate'))
+            print('LINK:', entry.findtext('link'))
+        print(f'DIAGNOSTIC: Accepted articles: {len(items)}')
         if not items:
             raise ValueError('No suitable dated education headlines found')
         payload = {'source':'Ghana News Agency', 'source_url':SOURCE, 'updated_at':datetime.now(timezone.utc).isoformat(timespec='seconds'), 'items':items}
