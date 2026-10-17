@@ -1,0 +1,29 @@
+name: SchoolFoundations Education News
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Download repository files
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run news processor
+        run: python update_news.py
+
+      - name: Show generated files
+        run: |
+          echo "News processor completed."
+          ls -la
